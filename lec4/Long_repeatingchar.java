@@ -1,0 +1,30 @@
+package lec4;
+
+public class Long_repeatingchar {
+    public static void main(String[] args){
+        String s = "ABAB";
+        int k = 2;
+        System.out.print(characterReplacement(s, k));
+    }
+
+    public static int characterReplacement(String s, int k) {
+        int[] freq = new int[26];
+        int left = 0;
+        int maxfreq = 0;
+        int maxwindow = 0;
+
+        for (int right = 0; right < s.length(); right++) {
+            freq[s.charAt(right) - 'A']++;
+            maxfreq = Math.max(maxfreq, freq[s.charAt(right) - 'A']);
+
+            while ((right - left + 1) - maxfreq > k) {
+                freq[s.charAt(left) - 'A']--;
+                left++;
+            }
+
+            maxwindow = Math.max(maxwindow, right - left + 1);
+        }
+
+        return maxwindow;
+    }
+}
